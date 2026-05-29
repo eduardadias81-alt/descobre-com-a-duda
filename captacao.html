@@ -8,283 +8,125 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cream: #FAF7F2; --cream-dark: #F0EBE1;
-      --mauve: #8B6B9E; --mauve-dark: #6B4F80; --mauve-light: #EDE6F4;
-      --gold: #C4956A; --text: #2A1F1A; --text-soft: #5C4A42; --white: #FFFFFF;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); line-height: 1.7; min-height: 100vh; }
-
-    nav {
-      padding: 1.2rem 2rem; display: flex; align-items: center; justify-content: center;
-      border-bottom: 1px solid rgba(196,149,106,0.15);
-    }
-    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--mauve-dark); text-decoration: none; }
-
-    /* MAIN */
-    .main { max-width: 600px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
-
-    .intro { text-align: center; margin-bottom: 3rem; }
-    .intro-tag {
-      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1rem;
-    }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 600; line-height: 1.25;
-      color: var(--text); margin-bottom: 1rem;
-    }
-    h1 em { color: var(--mauve); font-style: italic; }
-    .intro p { font-size: 0.95rem; color: var(--text-soft); line-height: 1.8; max-width: 480px; margin: 0 auto; }
-
-    /* PROGRESS */
-    .progress-wrap { margin-bottom: 2rem; }
-    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-    .progress-label { font-size: 0.78rem; color: var(--text-soft); }
-    .progress-bar-bg { background: var(--cream-dark); border-radius: 10px; height: 5px; }
-    .progress-bar { height: 5px; background: var(--mauve); border-radius: 10px; transition: width 0.4s ease; }
-
-    /* QUESTION */
-    .q-block { animation: fadeUp 0.3s ease; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-    .q-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.5; }
-
-    .options { display: flex; flex-direction: column; gap: 0.65rem; }
-    .opt {
-      width: 100%; text-align: left; padding: 0.9rem 1.1rem;
-      background: var(--white); border: 1.5px solid var(--cream-dark);
-      border-radius: 10px; font-size: 0.9rem; color: var(--text-soft);
-      cursor: pointer; transition: all 0.18s; font-family: 'Inter', sans-serif;
-      line-height: 1.5;
-    }
-    .opt:hover { border-color: var(--mauve); color: var(--mauve-dark); background: var(--mauve-light); }
-    .opt.picked { border-color: var(--mauve); background: var(--mauve-light); color: var(--mauve-dark); }
-
-    .q-nav { display: flex; justify-content: flex-start; margin-top: 1.25rem; }
-    .btn-back {
-      background: none; border: none; font-size: 0.82rem; color: var(--text-soft);
-      cursor: pointer; padding: 0; text-decoration: underline;
-    }
-    .btn-back:hover { color: var(--mauve); }
-
-    /* RESULT */
-    .result-block { animation: fadeUp 0.4s ease; }
-
-    .result-header { text-align: center; margin-bottom: 2rem; }
-    .result-header h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text); margin-bottom: 0.5rem; }
-    .result-header p { font-size: 0.92rem; color: var(--text-soft); line-height: 1.8; }
-
-    /* AREAS */
-    .areas-title { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-    .areas-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2.5rem; }
-    .area-row {
-      display: flex; align-items: center; gap: 0.75rem;
-      background: var(--white); border-radius: 10px; padding: 0.85rem 1rem;
-      border: 1px solid var(--cream-dark);
-    }
-    .area-icon { font-size: 1.1rem; flex-shrink: 0; }
-    .area-name { font-size: 0.88rem; color: var(--text); flex: 1; }
-    .area-bar-wrap { width: 80px; background: var(--cream-dark); border-radius: 6px; height: 6px; flex-shrink: 0; }
-    .area-bar { height: 6px; border-radius: 6px; }
-    .bar-low { background: #A8D5A2; }
-    .bar-mid { background: #E8B86D; }
-    .bar-high { background: #C0786A; }
-    .area-label { font-size: 0.72rem; font-weight: 500; width: 60px; text-align: right; flex-shrink: 0; }
-    .label-low { color: #4A7A4A; }
-    .label-mid { color: #8A5A20; }
-    .label-high { color: #8A3A30; }
-
-    /* SUGESTÃO PROGRAMA */
-    .sugestao {
-      background: var(--mauve-light); border: 1px solid rgba(139,107,158,0.3);
-      border-radius: 14px; padding: 1.5rem; margin-bottom: 2rem;
-    }
-    .sugestao-tag { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mauve); font-weight: 500; display: block; margin-bottom: 0.5rem; }
-    .sugestao h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--mauve-dark); margin-bottom: 0.5rem; }
-    .sugestao p { font-size: 0.88rem; color: var(--text-soft); line-height: 1.75; margin-bottom: 1.25rem; }
-
-    .btn-wa {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: #25D366; color: #fff; border: none; border-radius: 8px;
-      padding: 0.85rem 1.5rem; font-size: 0.9rem; font-weight: 500;
-      cursor: pointer; text-decoration: none; transition: all 0.2s; width: 100%; justify-content: center;
-    }
-    .btn-wa:hover { background: #1FAD57; transform: translateY(-1px); }
-
-    .restart-btn {
-      display: block; text-align: center; margin-top: 1.5rem;
-      font-size: 0.8rem; color: var(--text-soft); cursor: pointer;
-      background: none; border: none; text-decoration: underline; font-family: 'Inter', sans-serif;
-    }
-    .restart-btn:hover { color: var(--mauve); }
-
-    /* ASSINATURA */
-    .assinatura { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--cream-dark); }
-    .assinatura p { font-size: 0.82rem; color: rgba(92,74,66,0.55); }
-    .assinatura a { color: var(--mauve); text-decoration: none; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--cream:#FAF7F2;--cream-dark:#F0EBE1;--mauve:#8B6B9E;--mauve-dark:#6B4F80;--mauve-light:#EDE6F4;--gold:#C4956A;--text:#2A1F1A;--text-soft:#5C4A42;--white:#FFFFFF}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);line-height:1.7;min-height:100vh}
+    nav{padding:1.2rem 2rem;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(196,149,106,0.15)}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--mauve-dark);text-decoration:none}
+    .main{max-width:600px;margin:0 auto;padding:3rem 1.5rem 5rem}
+    .intro{text-align:center;margin-bottom:3rem}
+    .intro-tag{font-size:0.68rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:600;line-height:1.25;color:var(--text);margin-bottom:1rem}
+    h1 em{color:var(--mauve);font-style:italic}
+    .intro p{font-size:0.95rem;color:var(--text-soft);line-height:1.8;max-width:480px;margin:0 auto}
+    .progress-wrap{margin-bottom:2rem}
+    .progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+    .progress-label{font-size:0.78rem;color:var(--text-soft)}
+    .progress-bar-bg{background:var(--cream-dark);border-radius:10px;height:5px}
+    .progress-bar{height:5px;background:var(--mauve);border-radius:10px;transition:width 0.4s ease}
+    .q-block{animation:fadeUp 0.3s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .q-text{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--text);margin-bottom:1.5rem;line-height:1.5}
+    .options{display:flex;flex-direction:column;gap:0.65rem}
+    .opt{width:100%;text-align:left;padding:0.9rem 1.1rem;background:var(--white);border:1.5px solid var(--cream-dark);border-radius:10px;font-size:0.9rem;color:var(--text-soft);cursor:pointer;transition:all 0.18s;font-family:'Inter',sans-serif;line-height:1.5}
+    .opt:hover{border-color:var(--mauve);color:var(--mauve-dark);background:var(--mauve-light)}
+    .opt.picked{border-color:var(--mauve);background:var(--mauve-light);color:var(--mauve-dark)}
+    .q-nav{display:flex;justify-content:flex-start;margin-top:1.25rem}
+    .btn-back{background:none;border:none;font-size:0.82rem;color:var(--text-soft);cursor:pointer;padding:0;text-decoration:underline}
+    .btn-back:hover{color:var(--mauve)}
+    .result-block{animation:fadeUp 0.4s ease}
+    .result-header{text-align:center;margin-bottom:2rem}
+    .result-header h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text);margin-bottom:0.5rem}
+    .result-header p{font-size:0.92rem;color:var(--text-soft);line-height:1.8}
+    .areas-title{font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+    .areas-list{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2rem}
+    .area-item{background:var(--white);border-radius:12px;border:1px solid var(--cream-dark);overflow:hidden}
+    .area-row{display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1rem}
+    .area-icon{font-size:1.1rem;flex-shrink:0}
+    .area-name{font-size:0.88rem;color:var(--text);flex:1}
+    .area-bar-wrap{width:80px;background:var(--cream-dark);border-radius:6px;height:6px;flex-shrink:0}
+    .area-bar{height:6px;border-radius:6px}
+    .bar-low{background:#A8D5A2}.bar-mid{background:#E8B86D}.bar-high{background:#C0786A}
+    .area-label{font-size:0.72rem;font-weight:500;width:60px;text-align:right;flex-shrink:0}
+    .label-low{color:#4A7A4A}.label-mid{color:#8A5A20}.label-high{color:#8A3A30}
+    .area-tip{border-top:1px solid var(--cream-dark);padding:0.75rem 1rem 0.85rem 2.85rem;font-size:0.82rem;color:var(--text-soft);line-height:1.6;background:var(--cream)}
+    .area-tip a{display:inline-block;margin-top:0.45rem;font-size:0.8rem;font-weight:500;color:var(--mauve-dark);text-decoration:underline}
+    .area-tip a:hover{color:var(--mauve)}
+    .sugestao-voltar{background:#3D2A52;border-radius:14px;padding:1.6rem 1.5rem;margin-bottom:2rem;color:var(--white)}
+    .sugestao-voltar .tag{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);display:block;margin-bottom:0.5rem}
+    .sugestao-voltar h3{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:0.5rem}
+    .sugestao-voltar p{font-size:0.88rem;color:rgba(255,255,255,0.8);line-height:1.75;margin-bottom:1.25rem}
+    .btn-wa{display:inline-flex;align-items:center;gap:0.5rem;background:#25D366;color:#fff;border:none;border-radius:8px;padding:0.85rem 1.5rem;font-size:0.9rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all 0.2s;width:100%;justify-content:center}
+    .btn-wa:hover{background:#1FAD57;transform:translateY(-1px)}
+    .restart-btn{display:block;text-align:center;margin-top:1.5rem;font-size:0.8rem;color:var(--text-soft);cursor:pointer;background:none;border:none;text-decoration:underline;font-family:'Inter',sans-serif}
+    .restart-btn:hover{color:var(--mauve)}
+    .assinatura{text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--cream-dark)}
+    .assinatura p{font-size:0.82rem;color:rgba(92,74,66,0.55)}
+    .assinatura a{color:var(--mauve);text-decoration:none}
   </style>
 </head>
 <body>
-
-<nav>
-  <a href="https://eduardadias81-alt.github.io/descobre-com-a-duda/" class="nav-logo">Descobre com a Duda</a>
-</nav>
-
+<nav><a href="https://eduardadias81-alt.github.io/descobre-com-a-duda/" class="nav-logo">Descobre com a Duda</a></nav>
 <div class="main">
-  <!-- INTRO -->
   <div class="intro" id="intro">
     <span class="intro-tag">Diagnóstico Energético</span>
     <h1>Em que áreas está o <em>bloqueio</em>?</h1>
     <p>Sete perguntas. Sem respostas certas. Responde com o que sentes — não com o que achas que devias sentir.</p>
   </div>
-
-  <!-- QUIZ -->
   <div id="quiz">
     <div class="progress-wrap">
-      <div class="progress-top">
-        <span class="progress-label" id="plabel">1 / 7</span>
-      </div>
+      <div class="progress-top"><span class="progress-label" id="plabel">1 / 7</span></div>
       <div class="progress-bar-bg"><div class="progress-bar" id="pbar" style="width:14%"></div></div>
     </div>
     <div class="q-block" id="qblock"></div>
-    <div class="q-nav">
-      <button class="btn-back" id="btnback" onclick="prev()" style="display:none">← Anterior</button>
-    </div>
+    <div class="q-nav"><button class="btn-back" id="btnback" onclick="prev()" style="display:none">← Anterior</button></div>
   </div>
-
-  <!-- RESULTADO -->
-  <div id="resultado" style="display:none">
-    <div class="result-block" id="result-inner"></div>
-  </div>
-
-  <div class="assinatura">
-    <p>Criado por <a href="https://www.instagram.com/descobre_com_a_duda/" target="_blank">@descobre_com_a_duda</a> · Matosinhos</p>
-  </div>
+  <div id="resultado" style="display:none"><div class="result-block" id="result-inner"></div></div>
+  <div class="assinatura"><p>Criado por <a href="https://www.instagram.com/descobre_com_a_duda/" target="_blank">@descobre_com_a_duda</a> · Matosinhos</p></div>
 </div>
-
 <script>
-const qs = [
-  { area: "Estado geral", icon: "🌀",
-    text: "Quando olhas para a tua vida hoje, o que predomina?",
-    opts: ["Gratidão — não está tudo certo, mas estou no caminho", "Uma inquietação que não consigo nomear bem", "Cansaço. Como se estivesse sempre a remar contra a maré.", "Estagnação. Sinto que a vida está parada."] },
-  { area: "Padrões", icon: "🔁",
-    text: "Reconheces padrões que se repetem, mesmo quando mudas o que está à volta?",
-    opts: ["Não — quando mudo algo, muda de verdade", "Às vezes, mas não de forma marcante", "Sim, claramente. As circunstâncias mudam mas o padrão continua.", "Sempre. Parece que não importa o que faço."] },
-  { area: "Relações", icon: "🤝",
-    text: "Como te sentes nas tuas relações mais próximas?",
-    opts: ["Bem. Há reciprocidade e nutrem-me.", "Há uma ou duas que me drenam, mas no geral estou bem.", "Sinto que dou muito mais do que recebo.", "As relações são fonte de sofrimento frequente."] },
-  { area: "Trabalho / Propósito", icon: "💼",
-    text: "Em relação ao trabalho, dinheiro ou ao sentido do que fazes:",
-    opts: ["Sinto-me alinhada — flui razoavelmente bem.", "Há tensão, mas consigo gerir.", "Há bloqueios claros que não consigo ultrapassar.", "É uma área de muito sofrimento. Sinto-me presa."] },
-  { area: "Energia", icon: "⚡",
-    text: "Como está a tua energia física e emocional?",
-    opts: ["Tenho energia suficiente e sei quando recarregar.", "Estou cansada com alguma frequência mas funciono.", "Sinto-me esgotada com regularidade.", "O cansaço é constante — nada parece recarregar."] },
-  { area: "Identidade", icon: "🪞",
-    text: "Sentes-te próxima de quem queres ser?",
-    opts: ["Sim — estou a construir algo que me representa.", "Há um fosso, mas tenho clareza sobre o caminho.", "O fosso é grande e não sei como atravessá-lo.", "Perdi o contacto com quem sou. É difícil até imaginar."] },
-  { area: "Raiz", icon: "🌱",
-    text: "Qual destas frases ressoa mais contigo agora?",
-    opts: ["\"Estou bem. Podia estar melhor mas estou no caminho.\"", "\"Há algo que não está certo mas não percebi ainda o quê.\"", "\"Já tentei várias coisas e o padrão continua.\"", "\"Estou exausta de tentar perceber. Há algo mais fundo por ver.\""] }
+const waLinks={tarot:"https://wa.me/351910532028?text=Ol%C3%A1%20Duda%2C%20fiz%20o%20diagn%C3%B3stico%20e%20gostava%20de%20marcar%20uma%20sess%C3%A3o%20de%20Tarot%20Terap%C3%AAutico.",mesa:"https://wa.me/351910532028?text=Ol%C3%A1%20Duda%2C%20fiz%20o%20diagn%C3%B3stico%20e%20gostava%20de%20marcar%20uma%20sess%C3%A3o%20de%20Mesa%20Radi%C3%B4nica.",voltar:"https://wa.me/351910532028?text=Ol%C3%A1%20Duda%2C%20fiz%20o%20diagn%C3%B3stico%20e%20gostava%20de%20saber%20mais%20sobre%20o%20programa%20Voltar%20a%20Si."};
+const qs=[
+{area:"Estado geral",icon:"🌀",text:"Quando olhas para a tua vida hoje, o que predomina?",opts:["Gratidão — não está tudo certo, mas estou no caminho","Uma inquietação que não consigo nomear bem","Cansaço. Como se estivesse sempre a remar contra a maré.","Estagnação. Sinto que a vida está parada."],tips:{1:{msg:"Há uma inquietação a pedir atenção. O Tarot Terapêutico pode ajudar a nomear o que ainda não tem nome.",tipo:"tarot"},2:{msg:"Quando o cansaço é constante, há algo mais fundo a pedir cuidado. A Mesa Radiônica trabalha na raiz disso.",tipo:"mesa"},3:{msg:"Estagnação profunda pede um trabalho de fundo — não uma solução rápida.",tipo:"voltar"}}},
+{area:"Padrões",icon:"🔁",text:"Reconheces padrões que se repetem, mesmo quando mudas o que está à volta?",opts:["Não — quando mudo algo, muda de verdade","Às vezes, mas não de forma marcante","Sim, claramente. As circunstâncias mudam mas o padrão continua.","Sempre. Parece que não importa o que faço."],tips:{1:{msg:"Quando os padrões surgem, o Tarot pode dar clareza sobre o que está por ver.",tipo:"tarot"},2:{msg:"Padrões instalados precisam de trabalho energético mais profundo. A Mesa Radiônica foi feita para isso.",tipo:"mesa"},3:{msg:"Quando nada muda por fora porque algo está bloqueado por dentro — há um trabalho de raiz a fazer.",tipo:"voltar"}}},
+{area:"Relações",icon:"🤝",text:"Como te sentes nas tuas relações mais próximas?",opts:["Bem. Há reciprocidade e nutrem-me.","Há uma ou duas que me drenam, mas no geral estou bem.","Sinto que dou muito mais do que recebo.","As relações são fonte de sofrimento frequente."],tips:{1:{msg:"Uma relação que drena pode indicar um padrão energético activo. O Tarot ajuda a ler o que está a acontecer.",tipo:"tarot"},2:{msg:"Quando dás mais do que recebes sistematicamente, há algo na raiz que merece atenção. A Mesa Radiônica trabalha nisso.",tipo:"mesa"},3:{msg:"Sofrimento recorrente nas relações tem sempre uma raiz interna. Vale a pena ir lá.",tipo:"voltar"}}},
+{area:"Trabalho / Propósito",icon:"💼",text:"Em relação ao trabalho, dinheiro ou ao sentido do que fazes:",opts:["Sinto-me alinhada — flui razoavelmente bem.","Há tensão, mas consigo gerir.","Há bloqueios claros que não consigo ultrapassar.","É uma área de muito sofrimento. Sinto-me presa."],tips:{1:{msg:"Tensão no trabalho pode ter raízes subtis. O Tarot Terapêutico ajuda a ver o que está por baixo.",tipo:"tarot"},2:{msg:"Bloqueios que resistem à mudança têm quase sempre uma camada energética. A Mesa Radiônica pode trabalhar isso.",tipo:"mesa"},3:{msg:"Sentires-te presa numa área central da vida — isso pede um olhar profundo e acompanhado.",tipo:"voltar"}}},
+{area:"Energia",icon:"⚡",text:"Como está a tua energia física e emocional?",opts:["Tenho energia suficiente e sei quando recarregar.","Estou cansada com alguma frequência mas funciono.","Sinto-me esgotada com regularidade.","O cansaço é constante — nada parece recarregar."],tips:{1:{msg:"Cansaço frequente tem sempre uma mensagem. O Tarot pode ajudar a perceber o que está a drenar energia.",tipo:"tarot"},2:{msg:"Esgotamento regular indica que algo está a consumir mais do que devia. A Mesa Radiônica reequilibra o campo energético.",tipo:"mesa"},3:{msg:"Quando nada recarrega, o problema não é o estilo de vida — é algo mais fundo.",tipo:"voltar"}}},
+{area:"Identidade",icon:"🪞",text:"Sentes-te próxima de quem queres ser?",opts:["Sim — estou a construir algo que me representa.","Há um fosso, mas tenho clareza sobre o caminho.","O fosso é grande e não sei como atravessá-lo.","Perdi o contacto com quem sou. É difícil até imaginar."],tips:{1:{msg:"Ter clareza sobre o fosso já é muito — o Tarot pode apontar o próximo passo concreto.",tipo:"tarot"},2:{msg:"Quando o fosso parece intransponível, há bloqueios energéticos activos. A Mesa Radiônica trabalha exactamente isso.",tipo:"mesa"},3:{msg:"Perder o contacto consigo própria é o sinal mais claro de que há um trabalho de regresso a fazer.",tipo:"voltar"}}},
+{area:"Raiz",icon:"🌱",text:"Qual destas frases ressoa mais contigo agora?",opts:['"Estou bem. Podia estar melhor mas estou no caminho."','"Há algo que não está certo mas não percebi ainda o quê."','"Já tentei várias coisas e o padrão continua."','"Estou exausta de tentar perceber. Há algo mais fundo por ver."'],tips:{1:{msg:"Quando algo não está certo mas ainda não tem nome — o Tarot Terapêutico é o início certo.",tipo:"tarot"},2:{msg:"Quando o esforço não chega porque o padrão persiste — a Mesa Radiônica trabalha o que está por baixo.",tipo:"mesa"},3:{msg:"Exaustão de tentar é o sinal de que a solução não está na superfície. Há algo mais fundo a ver.",tipo:"voltar"}}}
 ];
-
-let cur = 0, ans = [];
-
-function render() {
-  const q = qs[cur];
-  const pct = Math.round(((cur + 1) / qs.length) * 100);
-  document.getElementById('plabel').textContent = `${cur + 1} / ${qs.length}`;
-  document.getElementById('pbar').style.width = pct + '%';
-  document.getElementById('btnback').style.display = cur > 0 ? 'inline' : 'none';
-  document.getElementById('qblock').innerHTML = `
-    <p class="q-text">${q.text}</p>
-    <div class="options">
-      ${q.opts.map((o, i) => `<button class="opt" onclick="pick(${i})">${o}</button>`).join('')}
-    </div>`;
-}
-
-function pick(i) {
-  ans[cur] = i;
-  document.querySelectorAll('.opt')[i].classList.add('picked');
-  setTimeout(() => {
-    if (cur < qs.length - 1) { cur++; render(); }
-    else showResult();
-  }, 280);
-}
-
-function prev() {
-  if (cur > 0) { cur--; render(); }
-}
-
-function showResult() {
-  document.getElementById('quiz').style.display = 'none';
-  document.getElementById('intro').style.display = 'none';
-  document.getElementById('resultado').style.display = 'block';
-
-  const total = ans.reduce((s, v) => s + v, 0);
-  const max = qs.length * 3;
-  const pct = total / max;
-
-  // Build area rows
-  const areasHTML = qs.map((q, i) => {
-    const score = ans[i] ?? 0;
-    const barClass = score <= 1 ? 'bar-low' : score === 2 ? 'bar-mid' : 'bar-high';
-    const lblClass = score <= 1 ? 'label-low' : score === 2 ? 'label-mid' : 'label-high';
-    const lblText = score === 0 ? 'Equilibrado' : score === 1 ? 'Leve tensão' : score === 2 ? 'Atenção' : 'Bloqueio';
-    const barW = Math.round((score / 3) * 100);
-    return `
-      <div class="area-row">
-        <span class="area-icon">${q.icon}</span>
-        <span class="area-name">${q.area}</span>
-        <div class="area-bar-wrap"><div class="area-bar ${barClass}" style="width:${barW}%"></div></div>
-        <span class="area-label ${lblClass}">${lblText}</span>
-      </div>`;
+let cur=0,ans=[];
+function render(){const q=qs[cur];const p=Math.round(((cur+1)/qs.length)*100);document.getElementById('plabel').textContent=(cur+1)+' / '+qs.length;document.getElementById('pbar').style.width=p+'%';document.getElementById('btnback').style.display=cur>0?'inline':'none';document.getElementById('qblock').innerHTML='<p class="q-text">'+q.text+'</p><div class="options">'+q.opts.map((o,i)=>'<button class="opt" onclick="pick('+i+')">'+o+'</button>').join('')+'</div>';}
+function pick(i){ans[cur]=i;document.querySelectorAll('.opt')[i].classList.add('picked');setTimeout(()=>{if(cur<qs.length-1){cur++;render();}else showResult();},280);}
+function prev(){if(cur>0){cur--;render();}}
+function showResult(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('intro').style.display='none';
+  document.getElementById('resultado').style.display='block';
+  const total=ans.reduce((s,v)=>s+v,0);
+  const pct=total/(qs.length*3);
+  const highCount=ans.filter(v=>v===3).length;
+  const showVoltar=pct>=0.55||highCount>=3;
+  const areasHTML=qs.map((q,i)=>{
+    const score=ans[i]??0;
+    const bc=score<=1?'bar-low':score===2?'bar-mid':'bar-high';
+    const lc=score<=1?'label-low':score===2?'label-mid':'label-high';
+    const lt=score===0?'Equilibrado':score===1?'Leve tensão':score===2?'Atenção':'Bloqueio';
+    const bw=Math.round((score/3)*100);
+    const tip=score>=1?q.tips[score]:null;
+    const showTip=tip&&!(score===3&&showVoltar);
+    let tipHTML='';
+    if(showTip){const wl=waLinks[tip.tipo];const wl2=tip.tipo==='tarot'?'Marcar sessão de Tarot →':tip.tipo==='mesa'?'Marcar sessão de Mesa Radiônica →':'Saber mais sobre Voltar a Si →';tipHTML='<div class="area-tip">'+tip.msg+'<br><a href="'+wl+'" target="_blank">'+wl2+'</a></div>';}
+    return '<div class="area-item"><div class="area-row"><span class="area-icon">'+q.icon+'</span><span class="area-name">'+q.area+'</span><div class="area-bar-wrap"><div class="area-bar '+bc+'" style="width:'+bw+'%"></div></div><span class="area-label '+lc+'">'+lt+'</span></div>'+tipHTML+'</div>';
   }).join('');
-
-  // Sugestão apenas se score alto
-  let sugestaoHTML = '';
-  if (pct >= 0.5) {
-    sugestaoHTML = `
-      <div class="sugestao">
-        <span class="sugestao-tag">Para quem quer ir mais fundo</span>
-        <h3>Voltar a Si 🌱</h3>
-        <p>Um acompanhamento de 3 meses com Tarot Terapêutico e Mesa Radiônica — para trabalhar o que está na raiz, não apenas o sintoma. Se quiseres saber mais, fala comigo.</p>
-        <a href="https://wa.me/351910532028?text=Olá%20Duda%2C%20fiz%20o%20diagnóstico%20e%20gostava%20de%20saber%20mais%20sobre%20o%20Voltar%20a%20Si." class="btn-wa">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.876L0 24l6.304-1.519A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.844 0-3.574-.476-5.08-1.31L2.4 21.8l1.13-4.392A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Pedir mais informações
-        </a>
-      </div>`;
-  }
-
-  const intro = pct >= 0.5
-    ? 'O diagnóstico mostra algumas áreas com mais resistência activa neste momento.'
-    : pct >= 0.25
-    ? 'Há pontos de tensão — mas nada que esteja muito instalado neste momento.'
-    : 'O teu campo energético está relativamente equilibrado agora.';
-
-  document.getElementById('result-inner').innerHTML = `
-    <div class="result-header">
-      <h2>O teu diagnóstico</h2>
-      <p>${intro}</p>
-    </div>
-    <p class="areas-title">Áreas em análise</p>
-    <div class="areas-list">${areasHTML}</div>
-    ${sugestaoHTML}
-    <button class="restart-btn" onclick="restart()">Repetir o diagnóstico</button>`;
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  let voltarHTML='';
+  if(showVoltar){voltarHTML='<div class="sugestao-voltar"><span class="tag">Acompanhamento de fundo</span><h3>Voltar a Si 🌱</h3><p>Um programa de 3 meses com Tarot Terapêutico e Mesa Radiônica — para trabalhar o que está na raiz, não apenas o sintoma. Se sentires que é o teu próximo passo, fala comigo.</p><a href="'+waLinks.voltar+'" class="btn-wa" target="_blank">Pedir mais informações</a></div>';}
+  const introMsg=pct>=0.55?'Há várias áreas com resistência activa neste momento — o diagnóstico mostra onde está o peso.':pct>=0.28?'Há pontos de tensão que merecem atenção — nem tudo, mas o suficiente para prestar cuidado.':'O teu campo energético está relativamente equilibrado neste momento.';
+  document.getElementById('result-inner').innerHTML='<div class="result-header"><h2>O teu diagnóstico</h2><p>'+introMsg+'</p></div><p class="areas-title">Áreas em análise</p><div class="areas-list">'+areasHTML+'</div>'+voltarHTML+'<button class="restart-btn" onclick="restart()">Repetir o diagnóstico</button>';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function restart() {
-  cur = 0; ans = [];
-  document.getElementById('quiz').style.display = 'block';
-  document.getElementById('intro').style.display = 'block';
-  document.getElementById('resultado').style.display = 'none';
-  render();
-}
-
+function restart(){cur=0;ans=[];document.getElementById('quiz').style.display='block';document.getElementById('intro').style.display='block';document.getElementById('resultado').style.display='none';render();}
 render();
 </script>
 </body>
