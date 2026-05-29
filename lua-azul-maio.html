@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lua Azul de Maio · Descobre com a Duda</title>
+  <meta name="description" content="A segunda Lua Cheia de maio chega no dia 31. Descobre o que esta Lua Azul traz para o teu signo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --night: #0D0B1A;
+      --night-mid: #1A1530;
+      --purple: #6B3FA0;
+      --purple-light: #9B6FD0;
+      --gold: #C4956A;
+      --gold-light: #E8C49A;
+      --cream: #FAF7F2;
+      --mauve: #8B6B9E;
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--night);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* STARS BACKGROUND */
+    .stars {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--d, 3s) ease-in-out infinite;
+      opacity: var(--o, 0.6);
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: var(--o, 0.6); transform: scale(1); }
+      50% { opacity: 0.1; transform: scale(0.8); }
+    }
+
+    /* SCREENS */
+    .screen {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    /* MOON */
+    .moon {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #FFF8E7, #E8D5A0 40%, #C4956A 75%, #8B6030);
+      box-shadow:
+        0 0 40px rgba(196, 149, 106, 0.6),
+        0 0 80px rgba(196, 149, 106, 0.3),
+        0 0 120px rgba(196, 149, 106, 0.15);
+      margin: 0 auto 2rem;
+      animation: moonPulse 4s ease-in-out infinite;
+      position: relative;
+    }
+    .moon::after {
+      content: '';
+      position: absolute; top: 15px; left: 20px;
+      width: 18px; height: 18px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      filter: blur(4px);
+    }
+    @keyframes moonPulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(196,149,106,0.6), 0 0 80px rgba(196,149,106,0.3), 0 0 120px rgba(196,149,106,0.15); }
+      50% { box-shadow: 0 0 60px rgba(196,149,106,0.8), 0 0 120px rgba(196,149,106,0.5), 0 0 180px rgba(196,149,106,0.25); }
+    }
+
+    .tag-small {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    h1 em { color: var(--gold-light); font-style: italic; }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    h2 em { color: var(--gold-light); font-style: italic; }
+
+    .subtitle {
+      font-size: 1rem; color: rgba(250,247,242,0.7);
+      line-height: 1.7; max-width: 500px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.5rem auto;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      cursor: pointer; border: none;
+      transition: all 0.3s;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), #E8A878);
+      color: var(--night);
+      box-shadow: 0 4px 20px rgba(196,149,106,0.4);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(196,149,106,0.5); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid rgba(250,247,242,0.3);
+      color: var(--cream);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* CARDS */
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(196,149,106,0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+      text-align: left;
+    }
+    .card-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .card p { font-size: 0.9rem; color: rgba(250,247,242,0.8); line-height: 1.7; }
+
+    /* GATE SCREEN */
+    .gate-box {
+      background: rgba(107, 63, 160, 0.15);
+      border: 1px solid rgba(107, 63, 160, 0.4);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      max-width: 400px;
+      margin: 0 auto 2rem;
+    }
+    .gate-box .moon-small {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #FFF8E7, #E8D5A0 40%, #C4956A 75%, #8B6030);
+      box-shadow: 0 0 20px rgba(196,149,106,0.5);
+      margin: 0 auto 1rem;
+    }
+    .gate-steps { list-style: none; text-align: left; margin: 1.5rem 0; }
+    .gate-steps li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.6rem 0;
+      font-size: 0.9rem; color: rgba(250,247,242,0.85);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .gate-steps li:last-child { border: none; }
+    .gate-steps .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gold); color: var(--night);
+      font-size: 0.75rem; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* SIGN GRID */
+    .signs-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem; max-width: 420px; margin: 0 auto 2rem;
+    }
+    .sign-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(196,149,106,0.2);
+      border-radius: 12px;
+      padding: 0.75rem 0.4rem;
+      cursor: pointer; transition: all 0.2s;
+      text-align: center;
+    }
+    .sign-btn:hover, .sign-btn.active {
+      background: rgba(196,149,106,0.15);
+      border-color: var(--gold);
+      transform: scale(1.05);
+    }
+    .sign-btn .sign-symbol { font-size: 1.4rem; display: block; }
+    .sign-btn .sign-name { font-size: 0.6rem; color: rgba(250,247,242,0.6); margin-top: 0.2rem; }
+
+    /* READING CARD */
+    .reading-card {
+      max-width: 500px; margin: 0 auto;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(196,149,106,0.3);
+      border-radius: 20px; padding: 2rem 1.5rem;
+      text-align: left;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .reading-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(196,149,106,0.2);
+    }
+    .reading-sign-icon { font-size: 2.5rem; }
+    .reading-sign-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--gold-light);
+    }
+    .reading-sign-date { font-size: 0.8rem; color: rgba(250,247,242,0.5); }
+
+    .reading-section { margin-bottom: 1.25rem; }
+    .reading-section-title {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .reading-section p { font-size: 0.9rem; color: rgba(250,247,242,0.85); line-height: 1.75; }
+
+    /* RITUAL SECTION */
+    .ritual-box {
+      background: rgba(107,63,160,0.1);
+      border: 1px solid rgba(107,63,160,0.3);
+      border-radius: 16px; padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .ritual-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--purple-light);
+      margin-bottom: 0.75rem;
+    }
+    .ritual-steps-list { list-style: none; }
+    .ritual-steps-list li {
+      font-size: 0.88rem; color: rgba(250,247,242,0.8);
+      padding: 0.4rem 0;
+      display: flex; gap: 0.5rem;
+    }
+    .ritual-steps-list li::before { content: '✦'; color: var(--gold); font-size: 0.65rem; margin-top: 3px; flex-shrink: 0; }
+
+    /* FOOTER DUDA */
+    .duda-footer {
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+    .duda-footer p { font-size: 0.8rem; color: rgba(250,247,242,0.5); }
+    .duda-footer a { color: var(--gold); text-decoration: none; }
+
+    /* UTILITY */
+    .hidden { display: none !important; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 500px; margin: 0 auto 2rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 500px; margin: 0 auto 2rem; }
+
+    @media (max-width: 480px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .signs-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- SCREEN 1: INTRO -->
+<div class="screen" id="screen-intro">
+  <div class="moon"></div>
+  <p class="tag-small">31 de Maio de 2026</p>
+  <h1>A <em>Lua Azul</em><br>de Maio chegou.</h1>
+  <div class="divider"></div>
+  <p class="subtitle">
+    Duas luas cheias num mesmo mês. É raro. É poderoso.<br>
+    Esta não é uma lua qualquer — traz clareza onde havia confusão, e fechamentos que ainda estavam em aberto.
+  </p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-icon">🌑</div>
+      <h3>O que é a Lua Azul?</h3>
+      <p>A segunda lua cheia de um mesmo mês. Acontece poucas vezes por ano — daí a expressão "once in a blue moon". Esta traz uma energia de completude e revelação.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">♐</div>
+      <h3>Lua em Sagitário</h3>
+      <p>O Sol está em Gémeos — a mente racional. A lua cheia opõe-se em Sagitário — a verdade maior. O confronto entre o que pensas e o que <em>sabes</em> no fundo.</p>
+    </div>
+  </div>
+
+  <button class="btn btn-gold" onclick="goTo('screen-energy')">Descobrir a energia desta lua →</button>
+</div>
+
+<!-- SCREEN 2: ENERGY -->
+<div class="screen hidden" id="screen-energy">
+  <p class="tag-small">Energia · Lua Azul em Sagitário</p>
+  <h2>O que esta lua<br>traz para <em>todos nós</em></h2>
+  <div class="divider"></div>
+
+  <div class="grid-3" style="max-width:560px; margin-bottom:2rem;">
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>Onde prestar atenção</h3>
+      <p>Padrões que se repetem. Conversas inacabadas. O que ainda não disseste — a ti ou a alguém. Esta lua ilumina o que evitaste ver.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <h3>O que é favorável</h3>
+      <p>Fechar ciclos. Tomar decisões adiadas. Perdoar — especialmente a ti. Começar algo novo depois do dia 31. A lua limpa o caminho.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>O que evitar</h3>
+      <p>Decisões impulsivas sob emoção. Confrontos desnecessários. Forçar fechamentos que ainda precisam de tempo. Escuta antes de agir.</p>
+    </div>
+  </div>
+
+  <div class="card" style="max-width:500px; margin:0 auto 2rem; text-align:center; border-color:rgba(107,63,160,0.4); background:rgba(107,63,160,0.1);">
+    <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:var(--gold-light); line-height:1.7;">
+      "A Lua Azul não é para tomar decisões — é para <em>finalmente ver</em> o que está por baixo delas."
+    </p>
+    <p style="font-size:0.75rem; color:rgba(250,247,242,0.4); margin-top:0.75rem;">— Descobre com a Duda</p>
+  </div>
+
+  <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+    <button class="btn btn-outline" onclick="goTo('screen-intro')">← Voltar</button>
+    <button class="btn btn-gold" onclick="goTo('screen-gate')">Quero a leitura do meu signo →</button>
+  </div>
+</div>
+
+<!-- SCREEN 3: GATE (share mechanic) -->
+<div class="screen hidden" id="screen-gate">
+  <div class="gate-box">
+    <div class="moon-small"></div>
+    <p class="tag-small">Um pequeno gesto antes de avançar</p>
+    <h2 style="font-size:1.4rem; margin-bottom:0.75rem;">A leitura do teu signo<br>está aqui à espera 🌕</h2>
+    <p style="font-size:0.85rem; color:rgba(250,247,242,0.65); line-height:1.7; margin-bottom:0.5rem;">
+      Esta página foi criada com muito cuidado. Se te trouxe algo, partilha com quem podes ajudar a crescer — tal como eu estou a tentar crescer.
+    </p>
+
+    <ul class="gate-steps">
+      <li>
+        <span class="step-num">1</span>
+        <span>Partilha este link com <strong>2 amigas</strong> que precisam de ler isto agora</span>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <span>Pede-lhes para seguirem <strong><a href="https://www.instagram.com/descobre_com_a_duda/" target="_blank" style="color:var(--gold);">@descobre_com_a_duda</a></strong> no Instagram</span>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <span>Quando estiver feito, clica em "Já partilhei" e desbloqueia a tua leitura ✨</span>
+      </li>
+    </ul>
+
+    <div style="display:flex; gap:0.75rem; flex-direction:column;">
+      <a href="https://wa.me/?text=🌕%20Há%20uma%20Lua%20Azul%20no%20dia%2031%20de%20maio%20e%20tens%20uma%20leitura%20personalizada%20para%20o%20teu%20signo.%20Não%20percas%20→%20https%3A%2F%2Feduardadias81-alt.github.io%2Fdescobre-com-a-duda%2Flua-azul-maio.html" target="_blank" class="btn btn-outline" style="font-size:0.85rem; text-align:center; padding:0.8rem 1.5rem;">
+        📲 Partilhar pelo WhatsApp
+      </a>
+      <button class="btn btn-gold" onclick="goTo('screen-signs')" style="font-size:0.9rem;">
+        ✨ Já partilhei — quero a minha leitura
+      </button>
+    </div>
+  </div>
+
+  <button class="btn btn-outline" onclick="goTo('screen-energy')" style="font-size:0.8rem; padding:0.6rem 1.2rem;">← Voltar</button>
+</div>
+
+<!-- SCREEN 4: SIGN SELECTION -->
+<div class="screen hidden" id="screen-signs">
+  <p class="tag-small">Leitura personalizada · Lua Azul em Sagitário</p>
+  <h2>Qual é o teu <em>signo solar</em>?</h2>
+  <p class="subtitle" style="margin-bottom:1.5rem; font-size:0.9rem;">Escolhe o teu signo para receber a leitura desta Lua Azul</p>
+
+  <div class="signs-grid">
+    <button class="sign-btn" onclick="selectSign('aries')"><span class="sign-symbol">♈</span><span class="sign-name">Áries</span></button>
+    <button class="sign-btn" onclick="selectSign('taurus')"><span class="sign-symbol">♉</span><span class="sign-name">Touro</span></button>
+    <button class="sign-btn" onclick="selectSign('gemini')"><span class="sign-symbol">♊</span><span class="sign-name">Gémeos</span></button>
+    <button class="sign-btn" onclick="selectSign('cancer')"><span class="sign-symbol">♋</span><span class="sign-name">Caranguejo</span></button>
+    <button class="sign-btn" onclick="selectSign('leo')"><span class="sign-symbol">♌</span><span class="sign-name">Leão</span></button>
+    <button class="sign-btn" onclick="selectSign('virgo')"><span class="sign-symbol">♍</span><span class="sign-name">Virgem</span></button>
+    <button class="sign-btn" onclick="selectSign('libra')"><span class="sign-symbol">♎</span><span class="sign-name">Balança</span></button>
+    <button class="sign-btn" onclick="selectSign('scorpio')"><span class="sign-symbol">♏</span><span class="sign-name">Escorpião</span></button>
+    <button class="sign-btn" onclick="selectSign('sagittarius')"><span class="sign-symbol">♐</span><span class="sign-name">Sagitário</span></button>
+    <button class="sign-btn" onclick="selectSign('capricorn')"><span class="sign-symbol">♑</span><span class="sign-name">Capricórnio</span></button>
+    <button class="sign-btn" onclick="selectSign('aquarius')"><span class="sign-symbol">♒</span><span class="sign-name">Aquário</span></button>
+    <button class="sign-btn" onclick="selectSign('pisces')"><span class="sign-symbol">♓</span><span class="sign-name">Peixes</span></button>
+  </div>
+
+  <button class="btn btn-outline" onclick="goTo('screen-gate')" style="font-size:0.8rem; padding:0.6rem 1.2rem;">← Voltar</button>
+</div>
+
+<!-- SCREEN 5: READING -->
+<div class="screen hidden" id="screen-reading">
+  <p class="tag-small">A tua leitura · Lua Azul 31 de Maio</p>
+  <div class="reading-card" id="reading-content"></div>
+
+  <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center;">
+    <button class="btn btn-outline" onclick="goTo('screen-signs')" style="font-size:0.85rem; padding:0.75rem 1.5rem;">← Outro signo</button>
+    <a href="https://www.instagram.com/descobre_com_a_duda/" target="_blank" class="btn btn-gold" style="font-size:0.85rem; padding:0.75rem 1.5rem;">Seguir @descobre_com_a_duda ✨</a>
+  </div>
+
+  <div class="duda-footer">
+    <p>Criado com presença por <a href="https://eduardadias81-alt.github.io/descobre-com-a-duda/">Descobre com a Duda</a></p>
+    <p style="margin-top:0.3rem; font-size:0.75rem;">Sessão de Tarot Terapêutico · Mesa Radiônica · Matosinhos</p>
+  </div>
+</div>
+
+<script>
+  // Generate stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%; left:${Math.random()*100}%;
+      --d:${2+Math.random()*4}s;
+      --o:${0.2+Math.random()*0.7};
+      animation-delay:${Math.random()*4}s;
+    `;
+    starsEl.appendChild(star);
+  }
+
+  // Navigation
+  function goTo(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+    document.getElementById(screenId).classList.remove('hidden');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  // Sign data
+  const signs = {
+    aries: {
+      symbol: '♈', name: 'Áries', dates: '21 Mar – 19 Abr',
+      focus: 'Casa 9 — Crenças, filosofia de vida, expansão',
+      energy: 'Esta Lua Azul bate directamente nas tuas crenças mais profundas. Há algo que acreditavas que já não cabe em quem és hoje. Não tens de o anunciar — apenas reconhece isso em silêncio.',
+      favorable: 'Reavaliar uma decisão importante. Parar de justificar o que já sabes que está errado. Iniciar uma busca — de conhecimento, de viagem, de sentido.',
+      ritual: ['Escreve numa folha uma crença que já não te serve', 'Lê-a em voz alta uma última vez — dá-lhe despedida', 'Queima ou rasga o papel ao amanhecer do dia 1 de junho', 'Di para ti: "Estou pronta para o que é verdadeiro"']
+    },
+    taurus: {
+      symbol: '♉', name: 'Touro', dates: '20 Abr – 20 Mai',
+      focus: 'Casa 8 — Transformação, partilha, o que está oculto',
+      energy: 'A lua ilumina o que partilhas — e o que escondes. Pode haver uma dinâmica financeira, emocional ou íntima que precisa de ser revista. Não tens medo da profundidade — és feita para ela.',
+      favorable: 'Conversas honestas sobre dinheiro ou emoções. Libertar algo que guardas há tempo. Confiar mais — em alguém ou em ti.',
+      ritual: ['Senta-te em silêncio à luz de uma vela', 'Coloca a mão no coração e pergunta: "O que é que ainda não disse?"', 'Escreve a resposta sem filtro — não é para ninguém', 'Fecha o caderno. A lua já ouviu.']
+    },
+    gemini: {
+      symbol: '♊', name: 'Gémeos', dates: '21 Mai – 20 Jun',
+      focus: 'Casa 7 — Relações, parcerias, o que o outro espelha',
+      energy: 'Esta é a tua lua cheia — o Sol está no teu signo e a Lua reflecte directamente as tuas relações. Alguém à tua frente está a mostrar-te algo sobre ti. Presta atenção ao que te irrita mais — é aí que está a mensagem.',
+      favorable: 'Conversas que ainda não tiveste. Clareza numa relação ambígua. Decidir o que queres de alguém — e dizer.',
+      ritual: ['Escreve o nome de quem ocupa os teus pensamentos', 'Ao lado, escreve o que és quando estás com essa pessoa', 'É quem queres ser? Se sim, nutre. Se não, honra essa verdade.', 'Acende uma vela branca e deixa queimar até ao fim.']
+    },
+    cancer: {
+      symbol: '♋', name: 'Caranguejo', dates: '21 Jun – 22 Jul',
+      focus: 'Casa 6 — Rotinas, saúde, o quotidiano que te constrói',
+      energy: 'O teu corpo sabe o que a tua mente ainda está a processar. Esta lua pede que olhes para o teu dia a dia com honestidade — o que te está a drenar? O que estás a adiar? Pequenas mudanças agora fazem grande diferença.',
+      favorable: 'Estabelecer uma nova rotina de cuidado. Dizer não ao que te rouba energia. Descansar — de verdade, sem culpa.',
+      ritual: ['Antes de dormir no dia 31, faz uma lista de 3 coisas que mudas no teu quotidiano', 'Não grandes decisões — pequenos gestos de cuidado', 'Coloca a lista debaixo do teu travesseiro durante 3 noites', 'Ao 4º dia, lê e começa.']
+    },
+    leo: {
+      symbol: '♌', name: 'Leão', dates: '23 Jul – 22 Ago',
+      focus: 'Casa 5 — Criatividade, expressão, prazer genuíno',
+      energy: 'Esta lua toca no que te faz brilhar — e no que estás a esconder por medo de ser demasiado. Tens guardado algo dentro de ti. Um projecto, uma ideia, uma forma de te expressar. Chegou a hora.',
+      favorable: 'Mostrar algo que criaste. Dizer sim ao prazer sem justificação. Brincar — com leveza e sem agenda.',
+      ritual: ['Cria algo — o que for: escreve, desenha, canta, dança', 'Não mostres a ninguém agora', 'À luz da lua, dedica essa criação à tua alma', 'Diz: "Estou aqui. Estou a criar. Isso chega."']
+    },
+    virgo: {
+      symbol: '♍', name: 'Virgem', dates: '23 Ago – 22 Set',
+      focus: 'Casa 4 — Raízes, família, o que chamas de lar',
+      energy: 'Há algo na tua história — na família, nas origens, no lugar de onde vens — que está a pedir atenção. Não para ser resolvido de uma vez, mas para ser visto. O que carregas que não é teu?',
+      favorable: 'Uma conversa sobre o passado que sempre adiaste. Criar espaço físico em casa — liberta energia emocional. Perdonar alguém sem precisar que eles peçam desculpa.',
+      ritual: ['Senta-te no chão, literalmente — em contacto com a terra', 'Fecha os olhos e imagina raízes a sair dos teus pés', 'Diz em voz alta o nome de alguém que queres libertar (de ressentimento)', 'Respira fundo três vezes. A cura é silenciosa.']
+    },
+    libra: {
+      symbol: '♎', name: 'Balança', dates: '23 Set – 22 Out',
+      focus: 'Casa 3 — Comunicação, mente, o que ainda não disseste',
+      energy: 'Há palavras por dizer. Esta lua ilumina a tua voz — o que guardas por não quereres perturbar, por medo da reacção, por não saberes como começar. Já sabes. O momento é este.',
+      favorable: 'Escrever o que sentes — carta, diário, mensagem. Ter uma conversa que adias há semanas. Estudar algo que te chama há tempo.',
+      ritual: ['Escreve uma carta para alguém — mesmo que não envies', 'Diz nela o que nunca conseguiste dizer em voz alta', 'Lê a carta em voz alta numa divisão sozinha', 'Guarda-a. A lua ouviu por ti.']
+    },
+    scorpio: {
+      symbol: '♏', name: 'Escorpião', dates: '23 Out – 21 Nov',
+      focus: 'Casa 2 — Valor próprio, recursos, o que é realmente teu',
+      energy: 'Esta lua toca no que acreditas que mereces. No dinheiro, no amor, no reconhecimento. Há um padrão de auto-sabotagem subtil a ser iluminado agora — não com julgamento, com curiosidade.',
+      favorable: 'Rever uma situação financeira ou profissional. Pedires o que vales. Parares de justificar o teu valor para quem já decidiu não ver.',
+      ritual: ['Coloca a mão esquerda no coração, a direita na barriga', 'Di três vezes: "Mereço o que peço. Estou em paz com o que tenho. Abro-me para mais."', 'Anota um passo concreto para receber melhor amanhã', 'Dorme com o papel debaixo do travesseiro.']
+    },
+    sagittarius: {
+      symbol: '♐', name: 'Sagitário', dates: '22 Nov – 21 Dez',
+      focus: 'Casa 1 — Identidade, começo, quem tu és agora',
+      energy: 'A Lua Cheia está no teu signo — isto é o teu momento. Algo em ti está a ser revelado. Uma versão mais verdadeira, mais alinhada. Podes sentir-te exposta — é normal. O que está a emergir não precisa de aprovação.',
+      favorable: 'Afirmar quem és hoje — diferente de quem eras há um ano. Começar algo novo com intenção. Deixar de esperar permissão.',
+      ritual: ['Olha-te ao espelho à luz de uma vela', 'Di o teu nome em voz alta — com intenção', 'Diz: "Estou aqui. Sou isto. Não preciso de esconder."', 'Faz um sorriso para ti. Sério. A lua está de olho.']
+    },
+    capricorn: {
+      symbol: '♑', name: 'Capricórnio', dates: '22 Dez – 19 Jan',
+      focus: 'Casa 12 — O que está nas sombras, cura silenciosa, o inconsciente',
+      energy: 'Esta é uma lua de integração profunda para ti. Algo que foi enterrado — uma dor, um padrão, uma parte de ti que nunca teve espaço — está a pedir para ser vista. Não precisas de resolver. Só de olhar com gentileza.',
+      favorable: 'Descanso que não se justifica. Silêncio intencional. Um momento de cuidado que não produza nada — apenas seja.',
+      ritual: ['Escolhe um momento de 10 minutos completamente a sós', 'Sem telemóvel, sem música', 'Fecha os olhos e pergunta: "O que precisas de mim hoje?"', 'Escuta. Sem interpretar. Apenas recebe.']
+    },
+    aquarius: {
+      symbol: '♒', name: 'Aquário', dates: '20 Jan – 18 Fev',
+      focus: 'Casa 11 — Comunidade, propósito colectivo, teus sonhos maiores',
+      energy: 'Esta lua ilumina o teu lugar no mundo — não o que fazes, mas o que representas. Há um grupo, uma causa, uma visão que chama por ti. E pode haver também alguém de quem te afastaste sem razão suficiente.',
+      favorable: 'Reconectar com alguém de forma genuína. Contribuir para algo maior do que tu. Partilhar uma ideia que guardavas com medo de ser demasiado.',
+      ritual: ['Escreve: "Quando contribuo para ______, sinto-me mais eu."', 'Preenche o espaço sem pensar — deixa sair o que vier', 'Compromete-te com um pequeno gesto nessa direcção amanhã', 'A lua amplia o que semeas em comunidade.']
+    },
+    pisces: {
+      symbol: '♓', name: 'Peixes', dates: '19 Fev – 20 Mar',
+      focus: 'Casa 10 — Propósito, visibilidade, o que mostras ao mundo',
+      energy: 'Esta lua pede-te que sejas vista. Não que sejas perfeita — que sejas real. Há um dom em ti que ainda não mostras completamente. O medo de falhar é menor do que o custo de continuar escondida.',
+      favorable: 'Partilhar o teu trabalho ou talento. Tomar uma decisão profissional adiada. Deixar de esperar que alguém te descubra — apresenta-te.',
+      ritual: ['Senta-te direita. Imagina um holofote suave sobre ti.', 'Pergunta: "O que é que o mundo precisa de mim que ainda não dei?"', 'Escreve uma linha. Só uma. O início de algo.', 'Coloca-a num lugar visível durante 7 dias.']
+    }
+  };
+
+  function selectSign(key) {
+    const s = signs[key];
+    document.getElementById('reading-content').innerHTML = `
+      <div class="reading-header">
+        <div class="reading-sign-icon">${s.symbol}</div>
+        <div>
+          <div class="reading-sign-name">${s.name}</div>
+          <div class="reading-sign-date">${s.dates}</div>
+        </div>
+      </div>
+      <div class="reading-section">
+        <div class="reading-section-title">🌕 Área em foco nesta lua</div>
+        <p>${s.focus}</p>
+      </div>
+      <div class="reading-section">
+        <div class="reading-section-title">✨ A mensagem da lua para ti</div>
+        <p>${s.energy}</p>
+      </div>
+      <div class="reading-section">
+        <div class="reading-section-title">🌿 O que é favorável agora</div>
+        <p>${s.favorable}</p>
+      </div>
+      <div class="ritual-box">
+        <h4>🕯️ Ritual da Lua Azul para ${s.name}</h4>
+        <ul class="ritual-steps-list">
+          ${s.ritual.map(r => `<li>${r}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+    goTo('screen-reading');
+  }
+</script>
+</body>
+</html>
