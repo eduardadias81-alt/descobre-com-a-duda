@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Energético Gratuito · Descobre com a Duda</title>
+  <meta name="description" content="Algo não está a fluir — mas ainda não consegues perceber exactamente o quê. O diagnóstico energético gratuito mostra onde está o bloqueio real.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF7F2;
+      --cream-dark: #F0EBE1;
+      --mauve: #8B6B9E;
+      --mauve-dark: #6B4F80;
+      --mauve-light: #EDE6F4;
+      --gold: #C4956A;
+      --gold-light: #E8C49A;
+      --text: #2A1F1A;
+      --text-soft: #5C4A42;
+      --white: #FFFFFF;
+      --green-soft: #E8F4E8;
+      --green: #4A7A4A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      padding: 1.2rem 2rem;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid rgba(196,149,106,0.15);
+      background: var(--cream);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--mauve-dark);
+      text-decoration: none; letter-spacing: 0.02em;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(160deg, var(--cream) 55%, var(--mauve-light) 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-inner { max-width: 680px; margin: 0 auto; }
+
+    .badge {
+      display: inline-block;
+      background: var(--mauve-light);
+      color: var(--mauve-dark);
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1.1rem; border-radius: 20px;
+      margin-bottom: 1.75rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600; line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    h1 em { color: var(--mauve); font-style: italic; }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-soft);
+      line-height: 1.85; max-width: 540px;
+      margin: 0 auto 0.75rem;
+    }
+
+    .hero-nota {
+      font-size: 0.82rem; color: var(--gold);
+      font-weight: 500; letter-spacing: 0.03em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 1rem 2.2rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 500;
+      text-decoration: none; cursor: pointer;
+      border: none; transition: all 0.25s;
+    }
+    .btn-primary {
+      background: var(--mauve); color: var(--white);
+      box-shadow: 0 4px 16px rgba(139,107,158,0.3);
+    }
+    .btn-primary:hover { background: var(--mauve-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,107,158,0.4); }
+
+    .btn-whatsapp {
+      background: #25D366; color: var(--white);
+      box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+      font-size: 1rem; padding: 1.1rem 2.5rem;
+    }
+    .btn-whatsapp:hover { background: #1FB855; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.45); }
+
+    .btn-outline {
+      background: transparent; color: var(--mauve);
+      border: 1.5px solid var(--mauve);
+    }
+    .btn-outline:hover { background: var(--mauve-light); }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 800px; margin: 0 auto; }
+
+    .section-tag {
+      display: block; font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem; text-align: center;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 600; line-height: 1.25;
+      color: var(--text); margin-bottom: 1.25rem;
+      text-align: center;
+    }
+    h2 em { color: var(--mauve); font-style: italic; }
+
+    /* ─── SINTOMAS ─── */
+    .sintomas { background: var(--white); }
+    .sintomas-intro {
+      text-align: center; color: var(--text-soft);
+      font-size: 1.02rem; max-width: 520px;
+      margin: 0 auto 3rem; line-height: 1.8;
+    }
+    .sintomas-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1rem; max-width: 640px; margin: 0 auto 3rem;
+    }
+    .sintoma-item {
+      background: var(--cream);
+      border-radius: 12px; padding: 1.1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 0.92rem; color: var(--text-soft); line-height: 1.55;
+    }
+    .sintoma-item .check {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--mauve-light); color: var(--mauve);
+      font-size: 0.7rem; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+
+    .sintomas-nota {
+      text-align: center; font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 1.1rem;
+      color: var(--mauve-dark); max-width: 500px;
+      margin: 0 auto 2rem; line-height: 1.6;
+    }
+
+    /* ─── O QUE É ─── */
+    .o-que-e { background: var(--cream-dark); }
+    .o-que-e-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center; max-width: 780px; margin: 0 auto;
+    }
+    .o-que-e-text p {
+      color: var(--text-soft); font-size: 1rem;
+      line-height: 1.85; margin-bottom: 1.1rem;
+    }
+    .o-que-e-text p strong { color: var(--text); font-weight: 500; }
+    .o-que-e-list { list-style: none; }
+    .o-que-e-list li {
+      font-size: 0.92rem; color: var(--text-soft);
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(196,149,106,0.15);
+      display: flex; gap: 0.65rem; align-items: flex-start;
+    }
+    .o-que-e-list li::before {
+      content: '✦'; color: var(--gold); font-size: 0.65rem;
+      margin-top: 4px; flex-shrink: 0;
+    }
+    .diagnostic-box {
+      background: var(--white); border-radius: 20px;
+      padding: 2rem; border: 1px solid rgba(196,149,106,0.2);
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(139,107,158,0.08);
+    }
+    .diagnostic-box .icon { font-size: 3rem; margin-bottom: 0.75rem; }
+    .diagnostic-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--text); margin-bottom: 0.5rem;
+    }
+    .diagnostic-box p {
+      font-size: 0.88rem; color: var(--text-soft);
+      line-height: 1.7; margin-bottom: 1.25rem;
+    }
+    .gratuito-tag {
+      display: inline-block;
+      background: var(--green-soft); color: var(--green);
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 20px;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ─── COMO FUNCIONA ─── */
+    .como-funciona { background: var(--white); }
+    .steps { max-width: 600px; margin: 0 auto 3rem; }
+    .step {
+      display: flex; gap: 1.5rem; align-items: flex-start;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .step:last-child { border: none; }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--mauve), var(--mauve-dark));
+      color: var(--white); font-size: 0.9rem; font-weight: 500;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; color: var(--text); margin-bottom: 0.35rem;
+    }
+    .step-content p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.7; }
+
+    /* ─── PROGRAMA ─── */
+    .programa {
+      background: linear-gradient(135deg, var(--mauve-dark) 0%, #4A3560 100%);
+      color: var(--white); text-align: center;
+    }
+    .programa h2 { color: var(--white); }
+    .programa h2 em { color: var(--gold-light); }
+    .programa-sub {
+      font-size: 1.02rem; color: rgba(255,255,255,0.8);
+      max-width: 520px; margin: 0 auto 0.75rem; line-height: 1.85;
+    }
+    .programa-nota {
+      font-size: 0.82rem; color: rgba(255,255,255,0.5);
+      margin-bottom: 3rem;
+      font-style: italic;
+    }
+    .programa-includes {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1rem; max-width: 540px; margin: 0 auto 3rem;
+      text-align: left;
+    }
+    .programa-item {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; padding: 1.1rem;
+    }
+    .programa-item .pi-icon { font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .programa-item p { font-size: 0.88rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
+
+    /* ─── CTA FINAL ─── */
+    .cta-final { background: var(--cream); text-align: center; }
+    .cta-box {
+      max-width: 520px; margin: 0 auto;
+      background: var(--white); border-radius: 20px;
+      padding: 3rem 2rem;
+      border: 1px solid rgba(196,149,106,0.2);
+      box-shadow: 0 12px 40px rgba(139,107,158,0.1);
+    }
+    .cta-box h2 { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .cta-box p {
+      font-size: 0.95rem; color: var(--text-soft);
+      margin-bottom: 0.5rem; line-height: 1.8;
+    }
+    .cta-nota {
+      font-size: 0.78rem; color: rgba(92,74,66,0.55);
+      margin-top: 1rem;
+    }
+
+    /* ─── SOBRE ─── */
+    .sobre-mini {
+      background: var(--cream-dark); text-align: center;
+      padding: 3.5rem 2rem;
+    }
+    .sobre-mini-inner { max-width: 500px; margin: 0 auto; }
+    .sobre-mini p {
+      font-size: 0.95rem; color: var(--text-soft);
+      line-height: 1.85; margin-bottom: 0.75rem;
+    }
+    .sobre-mini-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--mauve-dark);
+      margin-top: 1rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--text); color: rgba(255,255,255,0.45);
+      text-align: center; padding: 1.5rem 2rem;
+      font-size: 0.78rem;
+    }
+    footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .sintomas-grid { grid-template-columns: 1fr; }
+      .o-que-e-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .programa-includes { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://eduardadias81-alt.github.io/descobre-com-a-duda/" class="nav-logo">Descobre com a Duda</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="badge">Diagnóstico Energético Gratuito</span>
+    <h1>Algo não está a fluir —<br>e ainda não percebes <em>exactamente o quê</em>.</h1>
+    <p class="hero-sub">
+      Não é falta de esforço. Não é azar. Há algo mais fundo que está a criar o padrão que vês à superfície — no trabalho, nas relações, no corpo, na energia.
+    </p>
+    <p class="hero-nota">✦ Gratuito · Sem compromisso · Por WhatsApp</p>
+    <a href="https://wa.me/351910532028?text=Olá%20Duda%2C%20quero%20pedir%20o%20meu%20diagnóstico%20energético%20gratuito%20🌿" class="btn btn-whatsapp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.876L0 24l6.304-1.519A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.844 0-3.574-.476-5.08-1.31L2.4 21.8l1.13-4.392A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Pedir o meu diagnóstico gratuito
+    </a>
+  </div>
+</div>
+
+<!-- ─── SINTOMAS ─── -->
+<section class="sintomas">
+  <div class="section-inner">
+    <span class="section-tag">Reconheces isto?</span>
+    <h2>Quando o problema não é<br><em>o que parece ser</em></h2>
+    <p class="sintomas-intro">
+      Às vezes trabalhamos muito para mudar uma coisa — e ela não muda. Porque o que vemos à superfície é apenas o reflexo de algo mais fundo.
+    </p>
+
+    <div class="sintomas-grid">
+      <div class="sintoma-item"><span class="check">✓</span>Sentes que algo não está certo mas não consegues definir o quê</div>
+      <div class="sintoma-item"><span class="check">✓</span>Os mesmos padrões repetem-se mesmo quando mudas o que está à volta</div>
+      <div class="sintoma-item"><span class="check">✓</span>Há áreas da vida que simplesmente não fluem — há demasiado tempo</div>
+      <div class="sintoma-item"><span class="check">✓</span>Sentes-te exausta de tentar perceber e não chegares a nenhuma conclusão</div>
+      <div class="sintoma-item"><span class="check">✓</span>Tens intuição de que há algo mais profundo mas não sabes como chegar lá</div>
+      <div class="sintoma-item"><span class="check">✓</span>Já tentaste várias coisas — e o padrão continua</div>
+    </div>
+
+    <p class="sintomas-nota">
+      "Enquanto não olhas para o que está na raiz, podes mudar tudo à volta — o padrão vai contigo na mesma."
+    </p>
+    <div style="text-align:center;">
+      <a href="https://wa.me/351910532028?text=Olá%20Duda%2C%20quero%20pedir%20o%20meu%20diagnóstico%20energético%20gratuito%20🌿" class="btn btn-primary">Quero perceber o que está na raiz →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── O QUE É ─── -->
+<section class="o-que-e">
+  <div class="section-inner">
+    <div class="o-que-e-grid">
+      <div class="o-que-e-text">
+        <span class="section-tag" style="text-align:left;">O diagnóstico</span>
+        <h2 style="text-align:left; font-size:1.8rem;">O que é e<br><em>como funciona</em></h2>
+        <p>
+          É uma análise energética breve — feita por mim, individualmente. Não é um teste de personalidade nem um questionário genérico.
+        </p>
+        <p>
+          Através da Mesa Radiônica, leio o teu campo energético e identifico <strong>as áreas com mais bloqueio activo</strong> neste momento — o que está a criar resistência no teu quotidiano.
+        </p>
+        <ul class="o-que-e-list">
+          <li>Identificação das áreas energéticas em desequilíbrio</li>
+          <li>Leitura dos padrões mais activos agora</li>
+          <li>Indicação de onde concentrar atenção e intenção</li>
+          <li>Entregue por WhatsApp, com calma e sem pressa</li>
+        </ul>
+      </div>
+      <div class="diagnostic-box">
+        <div class="icon">🔮</div>
+        <span class="gratuito-tag">Gratuito</span>
+        <h3>Diagnóstico Energético</h3>
+        <p>Uma leitura breve e honesta do teu estado energético actual. Sem filtros, sem respostas vagas.</p>
+        <p style="font-size:0.82rem; color:rgba(92,74,66,0.6); margin-bottom:1.25rem;">Feito manualmente por mim · Entregue em 48h</p>
+        <a href="https://wa.me/351910532028?text=Olá%20Duda%2C%20quero%20pedir%20o%20meu%20diagnóstico%20energético%20gratuito%20🌿" class="btn btn-whatsapp" style="width:100%; justify-content:center; font-size:0.9rem;">
+          Pedir pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMO FUNCIONA ─── -->
+<section class="como-funciona">
+  <div class="section-inner">
+    <span class="section-tag">O processo</span>
+    <h2>Simples. <em>Sem complicações.</em></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Envias mensagem pelo WhatsApp</h3>
+          <p>Dizes apenas: "Quero o meu diagnóstico." Não precisas de te apresentar extensamente nem de explicar tudo de uma vez.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Faço a leitura energética</h3>
+          <p>Analiso o teu campo através da Mesa Radiônica. Identifico as áreas com mais bloqueio activo e o que está a criar padrão.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Recebes o teu diagnóstico em 48h</h3>
+          <p>Por áudio ou mensagem escrita — como preferires. Directa, honesta, e com indicação do que merece atenção agora.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Decides se queres ir mais fundo</h3>
+          <p>Sem pressão. Se o diagnóstico despertar algo — e geralmente desperta — conversamos sobre os próximos passos. Só quando estiveres pronta.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <a href="https://wa.me/351910532028?text=Olá%20Duda%2C%20quero%20pedir%20o%20meu%20diagnóstico%20energético%20gratuito%20🌿" class="btn btn-whatsapp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.876L0 24l6.304-1.519A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.844 0-3.574-.476-5.08-1.31L2.4 21.8l1.13-4.392A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Quero o meu diagnóstico gratuito
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROGRAMA ─── -->
+<section class="programa">
+  <div class="section-inner">
+    <span class="section-tag" style="color:rgba(255,255,255,0.5);">Para quem quer ir mais fundo</span>
+    <h2>Depois do diagnóstico —<br><em>Voltar a Si</em></h2>
+    <p class="programa-sub">
+      Um acompanhamento real para quem sabe que precisa de mais do que uma leitura. Tarot Terapêutico + Mesa Radiônica + apoio contínuo durante 3 meses.
+    </p>
+    <p class="programa-nota">Disponível apenas após diagnóstico · Vagas limitadas</p>
+
+    <div class="programa-includes">
+      <div class="programa-item">
+        <div class="pi-icon">🔍</div>
+        <p>1 sessão de diagnóstico aprofundado para mapear o ponto de partida</p>
+      </div>
+      <div class="programa-item">
+        <div class="pi-icon">🃏</div>
+        <p>6 sessões quinzenais — Tarot Terapêutico + Mesa Radiônica integrados</p>
+      </div>
+      <div class="programa-item">
+        <div class="pi-icon">💬</div>
+        <p>Apoio pelo WhatsApp entre sessões — para o que surgir no dia a dia</p>
+      </div>
+      <div class="programa-item">
+        <div class="pi-icon">🌱</div>
+        <p>Práticas e exercícios personalizados para o teu processo específico</p>
+      </div>
+    </div>
+
+    <a href="https://wa.me/351910532028?text=Olá%20Duda%2C%20quero%20saber%20mais%20sobre%20o%20programa%20Voltar%20a%20Si." class="btn btn-whatsapp">Quero saber mais sobre este acompanhamento</a>
+  </div>
+</section>
+
+<!-- ─── SOBRE ─── -->
+<div class="sobre-mini">
+  <div class="sobre-mini-inner">
+    <span class="section-tag">Quem sou</span>
+    <p>
+      Sou a Eduarda. O Tarot e a Mesa Radiônica são as minhas ferramentas — mas o que faço, no fundo, é criar espaço para que as coisas sejam vistas. Com calma. Com compreensão. Sem julgamento.
+    </p>
+    <p>
+      Não trabalho o sintoma. Trabalho o que está por baixo dele.
+    </p>
+    <p class="sobre-mini-name">— Eduarda Dias · <a href="https://www.instagram.com/descobre_com_a_duda/" target="_blank" style="color:var(--mauve); text-decoration:none;">@descobre_com_a_duda</a></p>
+  </div>
+</div>
+
+<!-- ─── CTA FINAL ─── -->
+<section class="cta-final">
+  <div class="cta-box">
+    <h2>Pronta para <em>perceber</em><br>o que está na raiz?</h2>
+    <p>O diagnóstico é gratuito. Sem compromisso. Sem pressão.</p>
+    <p style="font-size:0.88rem; color:rgba(92,74,66,0.6); margin-bottom:1.5rem;">Só uma conversa honesta sobre o que está activo no teu campo energético agora.</p>
+    <a href="https://wa.me/351910532028?text=Olá%20Duda%2C%20quero%20pedir%20o%20meu%20diagnóstico%20energético%20gratuito%20🌿" class="btn btn-whatsapp" style="width:100%; justify-content:center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.876L0 24l6.304-1.519A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.844 0-3.574-.476-5.08-1.31L2.4 21.8l1.13-4.392A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Pedir o diagnóstico gratuito pelo WhatsApp
+    </a>
+    <p class="cta-nota">📍 Matosinhos · Sessões presenciais e online</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Eduarda Dias · Descobre com a Duda · <a href="https://www.instagram.com/descobre_com_a_duda/">@descobre_com_a_duda</a></p>
+</footer>
+
+</body>
+</html>
