@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesa Radiônica Cristalina · Eduarda Dias</title>
+  <meta name="description" content="Um método autoral criado por Eduarda Dias. Trabalha no campo energético multidimensional — onde outras terapias não chegam.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep: #0E0A1A;
+      --purple: #4A2D7A;
+      --mauve: #8B6B9E;
+      --mauve-light: #C4A8D8;
+      --gold: #C4956A;
+      --gold-light: #E8C99A;
+      --cream: #FAF7F2;
+      --white: #FFFFFF;
+      --text-light: rgba(255,255,255,0.85);
+      --text-muted: rgba(255,255,255,0.5);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--deep); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 2rem; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(14,10,26,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(139,107,158,0.15);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--mauve-light); text-decoration: none; }
+    .nav-cta {
+      font-size: 0.8rem; padding: 0.5rem 1.2rem; border-radius: 20px;
+      background: rgba(139,107,158,0.2); border: 1px solid rgba(139,107,158,0.4);
+      color: var(--mauve-light); text-decoration: none; transition: all 0.2s;
+    }
+    .nav-cta:hover { background: rgba(139,107,158,0.35); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 2rem 4rem;
+      background: radial-gradient(ellipse at 50% 30%, rgba(74,45,122,0.6) 0%, rgba(14,10,26,0) 70%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('mesacristalinatras.jpg') center/cover no-repeat;
+      opacity: 0.08; z-index: 0;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .hero-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold); border: 1px solid rgba(196,149,106,0.3);
+      padding: 0.4rem 1.2rem; border-radius: 20px; margin-bottom: 2rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 600; line-height: 1.15;
+      margin-bottom: 1.5rem; letter-spacing: -0.01em;
+    }
+    h1 em { color: var(--mauve-light); font-style: italic; }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--text-light);
+      max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.8;
+    }
+    .hero-author {
+      font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 2.5rem;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--mauve); color: var(--white); border: none; border-radius: 8px;
+      padding: 1rem 2rem; font-size: 0.95rem; font-weight: 500;
+      text-decoration: none; transition: all 0.2s; cursor: pointer;
+    }
+    .btn-primary:hover { background: #9B7BAE; transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--mauve-light); border: 1px solid rgba(196,168,216,0.3);
+      border-radius: 8px; padding: 1rem 1.8rem; font-size: 0.9rem;
+      text-decoration: none; transition: all 0.2s; margin-left: 1rem;
+    }
+    .btn-secondary:hover { border-color: rgba(196,168,216,0.6); }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+
+    /* MESA IMAGES */
+    .mesa-section {
+      padding: 5rem 2rem; max-width: 1000px; margin: 0 auto;
+    }
+    .mesa-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .mesa-img {
+      border-radius: 16px; overflow: hidden; border: 1px solid rgba(139,107,158,0.2);
+      position: relative;
+    }
+    .mesa-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mesa-img-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1rem; background: linear-gradient(to top, rgba(14,10,26,0.9), transparent);
+      font-size: 0.75rem; color: var(--mauve-light); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .mesa-caption {
+      text-align: center; font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;
+    }
+
+    /* SECTIONS */
+    .section { padding: 5rem 2rem; max-width: 760px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1.2rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 600; line-height: 1.25;
+      margin-bottom: 1.5rem;
+    }
+    h2 em { color: var(--mauve-light); font-style: italic; }
+    p { font-size: 0.95rem; color: var(--text-light); line-height: 1.85; margin-bottom: 1.2rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* WHAT'S INSIDE */
+    .inside-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem; margin-top: 2.5rem;
+    }
+    .inside-card {
+      background: rgba(74,45,122,0.15); border: 1px solid rgba(139,107,158,0.2);
+      border-radius: 12px; padding: 1.2rem 1.4rem;
+    }
+    .inside-card-icon { font-size: 1.3rem; margin-bottom: 0.6rem; }
+    .inside-card-title { font-size: 0.85rem; font-weight: 500; color: var(--mauve-light); margin-bottom: 0.3rem; }
+    .inside-card-text { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%; height: 1px; max-width: 760px; margin: 0 auto;
+      background: linear-gradient(to right, transparent, rgba(139,107,158,0.3), transparent);
+    }
+
+    /* SESSION FLOW */
+    .flow { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
+    .flow-step { display: flex; gap: 1.5rem; padding-bottom: 2rem; position: relative; }
+    .flow-step:not(:last-child)::after {
+      content: ''; position: absolute; left: 14px; top: 36px; bottom: 0;
+      width: 1px; background: rgba(139,107,158,0.2);
+    }
+    .flow-num {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(139,107,158,0.2); border: 1px solid rgba(139,107,158,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 500; color: var(--mauve-light);
+    }
+    .flow-content { flex: 1; }
+    .flow-title { font-size: 0.95rem; font-weight: 500; color: var(--white); margin-bottom: 0.3rem; }
+    .flow-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* REACTIONS */
+    .reactions-wrap {
+      background: rgba(74,45,122,0.1); border: 1px solid rgba(139,107,158,0.15);
+      border-radius: 14px; padding: 2rem; margin-top: 2.5rem;
+    }
+    .reactions-title { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .reactions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .reaction-item { display: flex; align-items: flex-start; gap: 0.6rem; }
+    .reaction-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mauve); margin-top: 0.4rem; flex-shrink: 0; }
+    .reaction-text { font-size: 0.82rem; color: var(--text-light); }
+
+    /* PHOTO + ABOUT */
+    .about-wrap {
+      display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center;
+      padding: 5rem 2rem; max-width: 900px; margin: 0 auto;
+    }
+    .about-photo {
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(139,107,158,0.2);
+      aspect-ratio: 3/4; object-fit: cover; width: 100%;
+    }
+    .about-text h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+
+    /* FOR WHOM */
+    .forwhom-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .forwhom-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .forwhom-mark { color: var(--gold); font-size: 0.9rem; margin-top: 0.1rem; flex-shrink: 0; }
+    .forwhom-text { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center; padding: 6rem 2rem;
+      background: radial-gradient(ellipse at 50% 50%, rgba(74,45,122,0.4) 0%, transparent 70%);
+    }
+    .cta-price {
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); margin-top: 1.5rem;
+    }
+    .cta-price strong { color: var(--mauve-light); font-size: 1.1rem; }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 2rem; border-top: 1px solid rgba(139,107,158,0.1);
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+    footer a { color: var(--mauve); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .mesa-grid { grid-template-columns: 1fr; }
+      .about-wrap { grid-template-columns: 1fr; }
+      .about-photo { aspect-ratio: 4/3; max-width: 280px; margin: 0 auto; }
+      .reactions-grid { grid-template-columns: 1fr; }
+      .btn-secondary { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://eduardadias81-alt.github.io/descobre-com-a-duda/" class="nav-logo">Descobre com a Duda</a>
+  <a href="https://wa.me/351910532028?text=Ol%C3%A1%20Duda%2C%20gostava%20de%20saber%20mais%20sobre%20a%20Mesa%20Radi%C3%B4nica%20Cristalina." class="nav-cta" target="_blank">Agendar sessão</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">Método autoral · Eduarda Dias</span>
+    <h1>Mesa Radiônica<br><em>Cristalina</em></h1>
+    <p class="hero-sub">
+      Não é uma terapia comum. É um método que não existia — e que foi criado a partir da experiência de quem precisou de ir mais fundo do que qualquer técnica existente permitia.
+    </p>
+    <p class="hero-author">Criado e desenvolvido por Eduarda Dias · Copyright 2024</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/351910532028?text=Ol%C3%A1%20Duda%2C%20gostava%20de%20saber%20mais%20sobre%20a%20Mesa%20Radi%C3%B4nica%20Cristalina." class="btn-primary" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.876L0 24l6.304-1.519A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.844 0-3.574-.476-5.08-1.31L2.4 21.8l1.13-4.392A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Falar comigo
+      </a>
+      <a href="#o-que-e" class="btn-secondary">Saber mais ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- MESA IMAGES -->
+<div class="mesa-section">
+  <div class="mesa-grid">
+    <div class="mesa-img">
+      <img src="mesacristalinafrente.jpg" alt="Mesa Radiônica Cristalina — frente" loading="lazy">
+      <span class="mesa-img-label">Frente · chakras, terapia multidimensional e angélica</span>
+    </div>
+    <div class="mesa-img">
+      <img src="mesacristalinatras.jpg" alt="Mesa Radiônica Cristalina — verso" loading="lazy">
+      <span class="mesa-img-label">Verso · geometria de fluorite octaédrica</span>
+    </div>
+  </div>
+  <p class="mesa-caption">A Mesa Radiônica Cristalina — criada e desenvolvida por Eduarda Dias. Todos os direitos reservados.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- O QUE É -->
+<section class="section" id="o-que-e">
+  <span class="section-tag">O que é</span>
+  <h2>Vai onde outras terapias <em>não chegam</em></h2>
+  <p>A Mesa Radiônica Cristalina é um método energético multidimensional desenvolvido inteiramente por mim. Não é uma adaptação de outra técnica — foi criada a partir da necessidade de trabalhar num nível onde nada do que existia era suficiente.</p>
+  <p>Actua no campo energético da pessoa — antes dos pensamentos, antes dos comportamentos. No nível onde os padrões vivem antes de se tornarem visíveis na vida.</p>
+
+  <div class="inside-grid">
+    <div class="inside-card">
+      <div class="inside-card-icon">✦</div>
+      <p class="inside-card-title">Terapia Multidimensional</p>
+      <p class="inside-card-text">Trabalha em múltiplos níveis do campo energético em simultâneo.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-card-icon">✦</div>
+      <p class="inside-card-title">Terapia Angélica</p>
+      <p class="inside-card-text">Invocação de frequências angélicas para limpeza e alinhamento do campo.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-card-icon">✦</div>
+      <p class="inside-card-title">Radiação Atlante</p>
+      <p class="inside-card-text">Dois símbolos de radiação de origem atlante inseridos no método.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-card-icon">✦</div>
+      <p class="inside-card-title">Reiki Kannasuka</p>
+      <p class="inside-card-text">Símbolo de limpeza profunda do campo energético.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-card-icon">✦</div>
+      <p class="inside-card-title">Código de Luz</p>
+      <p class="inside-card-text">Geometria de fluorite octaédrica — frequência de clareza e transformação.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-card-icon">✦</div>
+      <p class="inside-card-title">Leitura intuitiva</p>
+      <p class="inside-card-text">Durante a sessão tenho sensações e intuições que fazem parte do trabalho.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMO ACONTECE -->
+<section class="section">
+  <span class="section-tag">Como acontece</span>
+  <h2>Uma sessão de <em>Mesa Radiônica Cristalina</em></h2>
+  <p>Pode ser presencial ou à distância — incluindo offline, enquanto dormes ou no teu dia a dia. O campo energético não tem fronteiras físicas.</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <p class="flow-title">Análise breve do campo</p>
+        <p class="flow-text">Inicio com uma leitura do estado energético da pessoa — o que está activo, o que está bloqueado, onde há mais resistência neste momento.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <p class="flow-title">Limpeza profunda do campo</p>
+        <p class="flow-text">Começo sempre com uma limpeza energética antes de qualquer outro trabalho. É necessário limpar antes de construir.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <p class="flow-title">Trabalho multidimensional</p>
+        <p class="flow-text">Acesso diferentes camadas do campo. Durante este processo tenho frequentemente sensações e intuições — que fazem parte integrante da sessão.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <p class="flow-title">Áudio no final</p>
+        <p class="flow-text">Envio sempre um áudio com o que observei durante a sessão — o que senti, o que trabalhámos, o que ficou em movimento.</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:0.82rem; color:var(--text-muted); margin-top:1.5rem;">Duração aproximada: 1 hora, podendo variar conforme o estado energético da pessoa.</p>
+
+  <div class="reactions-wrap">
+    <p class="reactions-title">Reacções possíveis durante a estabilização</p>
+    <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.2rem;">O campo energético precisa de tempo para se reorganizar. É natural sentir:</p>
+    <div class="reactions-grid">
+      <div class="reaction-item"><span class="reaction-dot"></span><span class="reaction-text">Breves sensações físicas</span></div>
+      <div class="reaction-item"><span class="reaction-dot"></span><span class="reaction-text">Dor de cabeça ligeira</span></div>
+      <div class="reaction-item"><span class="reaction-dot"></span><span class="reaction-text">Necessidade de choro</span></div>
+      <div class="reaction-item"><span class="reaction-dot"></span><span class="reaction-text">Sonolência ou cansaço</span></div>
+      <div class="reaction-item"><span class="reaction-dot"></span><span class="reaction-text">Aumento súbito de energia</span></div>
+      <div class="reaction-item"><span class="reaction-dot"></span><span class="reaction-text">Sensação de leveza</span></div>
+    </div>
+    <p style="font-size:0.82rem; color:var(--text-muted); margin-top:1.2rem;">Após a estabilização: melhoria da energia e bem-estar, mais clareza, abertura a novas oportunidades.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOBRE MIM -->
+<div class="about-wrap">
+  <img src="duda..jpg" alt="Eduarda Dias" class="about-photo" loading="lazy">
+  <div class="about-text">
+    <span class="section-tag">Quem criou</span>
+    <h2>Eduarda Dias</h2>
+    <p>Construí este método porque precisei. Não como exercício criativo — como necessidade real de ir a um lugar onde nada do que existia chegava.</p>
+    <p>A Mesa Radiônica Cristalina nasceu da minha própria experiência de cura — do que aprendi quando estava do outro lado. É um método que conheço por dentro, não só por fora.</p>
+    <p>Trabalho com pessoas que já tentaram de tudo. Que sentem que há algo mais fundo por ver. Esse é o lugar onde esta mesa actua.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PARA QUEM -->
+<section class="section">
+  <span class="section-tag">Para quem é</span>
+  <h2>Reconheces-te <em>aqui</em>?</h2>
+  <div class="forwhom-list">
+    <div class="forwhom-item">
+      <span class="forwhom-mark">✦</span>
+      <span class="forwhom-text">Já fizeste terapia, coaching, retiros — e ainda há algo que não encaixa.</span>
+    </div>
+    <div class="forwhom-item">
+      <span class="forwhom-mark">✦</span>
+      <span class="forwhom-text">Os padrões repetem-se independentemente do que mudas à volta.</span>
+    </div>
+    <div class="forwhom-item">
+      <span class="forwhom-mark">✦</span>
+      <span class="forwhom-text">O cansaço é constante — e nada parece recarregar de verdade.</span>
+    </div>
+    <div class="forwhom-item">
+      <span class="forwhom-mark">✦</span>
+      <span class="forwhom-text">Tens a sensação de que há algo mais fundo que ainda não foi visto.</span>
+    </div>
+    <div class="forwhom-item">
+      <span class="forwhom-mark">✦</span>
+      <span class="forwhom-text">Os exames estão bem — mas não te sentes bem.</span>
+    </div>
+    <div class="forwhom-item">
+      <span class="forwhom-mark">✦</span>
+      <span class="forwhom-text">Queres trabalhar a raiz, não o sintoma.</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <span class="section-tag" style="display:block; margin-bottom:1.5rem">Próximo passo</span>
+  <h2 style="font-size:clamp(1.8rem,4vw,2.6rem); max-width:500px; margin:0 auto 1.5rem">Há algo mais fundo<br><em>por trabalhar</em></h2>
+  <p style="max-width:420px; margin:0 auto 2.5rem; color:var(--text-muted)">Se sentiste que isto ressoa — fala comigo. Sem compromisso. Só uma conversa para perceber se faz sentido.</p>
+  <a href="https://wa.me/351910532028?text=Ol%C3%A1%20Duda%2C%20gostava%20de%20saber%20mais%20sobre%20a%20Mesa%20Radi%C3%B4nica%20Cristalina%20e%20agendar%20uma%20sess%C3%A3o." class="btn-primary" target="_blank" style="font-size:1rem; padding:1.1rem 2.5rem;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.876L0 24l6.304-1.519A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.844 0-3.574-.476-5.08-1.31L2.4 21.8l1.13-4.392A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    Falar com a Duda
+  </a>
+  <p class="cta-price">Sessão individual · <strong>80€</strong> · Presencial ou à distância</p>
+</section>
+
+<footer>
+  <p>© 2024 Eduarda Dias · Mesa Radiônica Cristalina · Todos os direitos reservados · <a href="https://www.instagram.com/descobre_com_a_duda/" target="_blank">@descobre_com_a_duda</a></p>
+</footer>
+
+</body>
+</html>
