@@ -93,21 +93,17 @@
     }
     .mesa-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 0;
     }
     .mesa-img {
       border-radius: 16px; overflow: hidden; border: 1px solid rgba(139,107,158,0.2);
-      position: relative;
+      aspect-ratio: 4/5; position: relative;
     }
-    .mesa-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .mesa-img-label {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1rem; background: linear-gradient(to top, rgba(14,10,26,0.9), transparent);
-      font-size: 0.75rem; color: var(--mauve-light); letter-spacing: 0.06em; text-transform: uppercase;
+    .mesa-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
-    .mesa-caption {
-      text-align: center; font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;
-    }
+    .mesa-img.frente img { object-position: center 35%; }
+    .mesa-img.tras img { object-position: center center; }
 
     /* SECTIONS */
     .section { padding: 5rem 2rem; max-width: 760px; margin: 0 auto; }
@@ -246,16 +242,13 @@
 <!-- MESA IMAGES -->
 <div class="mesa-section">
   <div class="mesa-grid">
-    <div class="mesa-img">
-      <img src="mesacristalinafrente.jpg" alt="Mesa Radiônica Cristalina — frente" loading="lazy">
-      <span class="mesa-img-label">Frente · chakras, terapia multidimensional e angélica</span>
+    <div class="mesa-img frente">
+      <img src="mesacristalinafrente.jpg" alt="Mesa Radiônica Cristalina" loading="lazy">
     </div>
-    <div class="mesa-img">
+    <div class="mesa-img tras">
       <img src="mesacristalinatras.jpg" alt="Mesa Radiônica Cristalina — verso" loading="lazy">
-      <span class="mesa-img-label">Verso · geometria de fluorite octaédrica</span>
     </div>
   </div>
-  <p class="mesa-caption">A Mesa Radiônica Cristalina — criada e desenvolvida por Eduarda Dias. Todos os direitos reservados.</p>
 </div>
 
 <div class="divider"></div>
@@ -267,36 +260,48 @@
   <p>A Mesa Radiônica Cristalina é um método energético multidimensional desenvolvido inteiramente por mim. Não é uma adaptação de outra técnica — foi criada a partir da necessidade de trabalhar num nível onde nada do que existia era suficiente.</p>
   <p>Actua no campo energético da pessoa — antes dos pensamentos, antes dos comportamentos. No nível onde os padrões vivem antes de se tornarem visíveis na vida.</p>
 
+  <p>São duas placas que trabalham em conjunto — a primeira com o campo energético humano completo incluindo os chakras transcendentais; a segunda com gráficos energéticos e o <em>Abundance Flush Empowerment</em>, para trabalhar a abundância em todas as suas formas.</p>
+
   <div class="inside-grid">
     <div class="inside-card">
       <div class="inside-card-icon">✦</div>
       <p class="inside-card-title">Terapia Multidimensional</p>
-      <p class="inside-card-text">Trabalha em múltiplos níveis do campo energético em simultâneo.</p>
+      <p class="inside-card-text">Actua em múltiplos níveis do campo energético em simultâneo, incluindo camadas que outras terapias não alcançam.</p>
     </div>
     <div class="inside-card">
       <div class="inside-card-icon">✦</div>
       <p class="inside-card-title">Terapia Angélica</p>
-      <p class="inside-card-text">Invocação de frequências angélicas para limpeza e alinhamento do campo.</p>
+      <p class="inside-card-text">Frequências angélicas integradas no trabalho para limpeza e alinhamento do campo.</p>
     </div>
     <div class="inside-card">
       <div class="inside-card-icon">✦</div>
       <p class="inside-card-title">Radiação Atlante</p>
-      <p class="inside-card-text">Dois símbolos de radiação de origem atlante inseridos no método.</p>
+      <p class="inside-card-text">Dois símbolos de radiação atlante com acção directa sobre bloqueios energéticos profundos.</p>
     </div>
     <div class="inside-card">
       <div class="inside-card-icon">✦</div>
-      <p class="inside-card-title">Reiki Kannasuka</p>
-      <p class="inside-card-text">Símbolo de limpeza profunda do campo energético.</p>
+      <p class="inside-card-title">HANNASUKA · Reiki de limpeza</p>
+      <p class="inside-card-text">Símbolo de Reiki específico para limpeza de entidades negativas e pesadas do campo.</p>
     </div>
     <div class="inside-card">
       <div class="inside-card-icon">✦</div>
-      <p class="inside-card-title">Código de Luz</p>
-      <p class="inside-card-text">Geometria de fluorite octaédrica — frequência de clareza e transformação.</p>
+      <p class="inside-card-title">Geometria de Fluorite Octaédrica</p>
+      <p class="inside-card-text">Código de luz com frequência de clareza, pureza e transformação profunda.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-card-icon">✦</div>
+      <p class="inside-card-title">Chakras Transcendentais</p>
+      <p class="inside-card-text">Trabalho que vai além dos 7 chakras conhecidos — actua nos centros energéticos superiores e subtis.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-card-icon">✦</div>
+      <p class="inside-card-title">Abundance Flush Empowerment</p>
+      <p class="inside-card-text">Gráfico energético específico para desbloqueio e activação da abundância em todas as dimensões da vida.</p>
     </div>
     <div class="inside-card">
       <div class="inside-card-icon">✦</div>
       <p class="inside-card-title">Leitura intuitiva</p>
-      <p class="inside-card-text">Durante a sessão tenho sensações e intuições que fazem parte do trabalho.</p>
+      <p class="inside-card-text">Durante a sessão tenho sensações e intuições que fazem parte do processo — e partilho-as no áudio final.</p>
     </div>
   </div>
 </section>
