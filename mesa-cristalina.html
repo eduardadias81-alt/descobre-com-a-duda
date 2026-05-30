@@ -92,57 +92,25 @@
       padding: 4rem 2rem; max-width: 900px; margin: 0 auto;
     }
 
-    /* Faixa atmosférica da traseira — desfocada, roxo sobre ela */
-    .mesa-atmo {
-      position: relative; width: 100%; height: 340px; overflow: hidden;
-      border-radius: 20px; margin-bottom: 2rem;
+    /* Imagem única — zoom apertado ao centro das placas */
+    .mesa-single {
+      position: relative; width: 100%; max-width: 700px; margin: 0 auto;
+      border-radius: 20px; overflow: hidden; aspect-ratio: 16/9;
+      border: 1px solid rgba(139,107,158,0.12);
     }
-    .mesa-atmo img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center 40%;
-      filter: blur(6px) brightness(0.55) saturate(1.4);
-      transform: scale(1.08);
+    .mesa-single img {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: 50% 45%;
+      filter: brightness(0.9) saturate(1.1);
+      transform: scale(1.35);
     }
-    .mesa-atmo::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(74,45,122,0.55) 0%, rgba(14,10,26,0.75) 80%);
-    }
-    .mesa-atmo-label {
-      position: absolute; inset: 0; z-index: 2;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center;
-    }
-    .mesa-atmo-label span {
-      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(196,168,216,0.7); display: block; margin-bottom: 0.7rem;
-    }
-    .mesa-atmo-label p {
-      font-family: 'Playfair Display', serif; font-size: clamp(1.3rem, 3vw, 1.8rem);
-      font-style: italic; color: var(--mauve-light); margin: 0; line-height: 1.3;
-    }
-
-    /* Duas placas lado a lado — zoom apertado, só as placas */
-    .mesa-duo {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-    }
-    .mesa-placa {
-      position: relative; border-radius: 16px; overflow: hidden;
-      aspect-ratio: 3/4; border: 1px solid rgba(139,107,158,0.12);
-    }
-    .mesa-placa img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      filter: brightness(0.92) saturate(1.15);
-    }
-    .mesa-placa.p1 img { object-position: 48% 18%; }
-    .mesa-placa.p2 img { object-position: 52% 72%; }
-    /* Vinheta forte nas bordas */
-    .mesa-placa::after {
-      content: ''; position: absolute; inset: 0; z-index: 1;
+    /* Vinheta forte — apaga tudo à volta, só ficam as placas */
+    .mesa-single::after {
+      content: ''; position: absolute; inset: 0;
       background:
-        linear-gradient(to bottom, rgba(14,10,26,0.65) 0%, transparent 18%, transparent 82%, rgba(14,10,26,0.75) 100%),
-        linear-gradient(to right, rgba(14,10,26,0.6) 0%, transparent 18%, transparent 82%, rgba(14,10,26,0.6) 100%);
+        linear-gradient(to bottom, rgba(14,10,26,0.75) 0%, transparent 22%, transparent 78%, rgba(14,10,26,0.8) 100%),
+        linear-gradient(to right, rgba(14,10,26,0.75) 0%, transparent 18%, transparent 82%, rgba(14,10,26,0.75) 100%);
     }
-    @media(max-width:500px){ .mesa-duo { grid-template-columns: 1fr; } }
 
     /* SECTIONS */
     .section { padding: 5rem 2rem; max-width: 760px; margin: 0 auto; }
@@ -278,24 +246,10 @@
   </div>
 </section>
 
-<!-- MESA IMAGES -->
+<!-- MESA IMAGE -->
 <div class="mesa-section">
-  <!-- Faixa atmosférica: traseira desfocada com texto por cima -->
-  <div class="mesa-atmo">
-    <img src="mesacristalinatras.jpg" alt="" aria-hidden="true">
-    <div class="mesa-atmo-label">
-      <span>Mesa Radiônica Cristalina · Eduarda Dias</span>
-      <p>"A mesa é o canal.<br>A energia sou eu."</p>
-    </div>
-  </div>
-  <!-- Duas placas lado a lado, zoom apertado -->
-  <div class="mesa-duo">
-    <div class="mesa-placa p1">
-      <img src="mesacristalinafrente.jpg" alt="Mesa Radiônica Cristalina — placa 1" loading="lazy">
-    </div>
-    <div class="mesa-placa p2">
-      <img src="mesacristalinafrente.jpg" alt="Mesa Radiônica Cristalina — placa 2" loading="lazy">
-    </div>
+  <div class="mesa-single">
+    <img src="mesacristalinafrente.jpg" alt="Mesa Radiônica Cristalina" loading="lazy">
   </div>
 </div>
 
@@ -304,16 +258,15 @@
 <!-- O QUE É -->
 <section class="section" id="o-que-e">
   <span class="section-tag">O que é</span>
-  <h2>A ferramenta sou eu — <em>a mesa é o canal</em></h2>
+  <h2>Uma ferramenta. <em>Uma versão minha.</em></h2>
   <p>A Mesa Radiônica Psiônica trabalha nos campos físico, emocional, mental e espiritual. Na vertente psiônica, tudo é acedido através da mente e da energia do operador — sem pêndulo, sem intermediários. A intenção e a sensibilidade de quem trabalha são parte central do processo.</p>
-  <p>A Mesa Radiônica Cristalina é a minha versão — construída por mim, com as terapias que integrei na minha formação, organizada para trabalhar em camadas: da limpeza e análise à reprogramação do campo. Não há outra igual porque não há outro operador igual.</p>
-  <p>São duas placas que trabalham em conjunto — a primeira com o mapa completo do campo energético humano, incluindo os chakras transcendentais; a segunda com gráficos energéticos e o <em>Abundance Flush Empowerment</em>, um sistema de 6 níveis para desbloqueio e activação da prosperidade e abundância.</p>
+  <p>A Mesa Radiônica Cristalina é a minha versão — dois tabuleiros construídos por mim, com as terapias que integrei na minha formação. Não há outra igual porque não há outro operador igual.</p>
 
   <div class="inside-grid">
     <div class="inside-card">
       <div class="inside-card-icon">✦</div>
       <p class="inside-card-title">Terapia Multidimensional</p>
-      <p class="inside-card-text">Uma das terapias integradas na mesa — trabalha em camadas do campo que vão além do físico visível.</p>
+      <p class="inside-card-text">Cura através do coração — conduz energia pelos vários níveis do ser (físico, emocional, mental, espiritual), incluindo memórias traumáticas e vidas passadas.</p>
     </div>
     <div class="inside-card">
       <div class="inside-card-icon">✦</div>
@@ -379,15 +332,15 @@
     <div class="flow-step">
       <div class="flow-num">3</div>
       <div class="flow-content">
-        <p class="flow-title">Trabalho multidimensional</p>
-        <p class="flow-text">Acesso diferentes camadas do campo. Durante este processo tenho frequentemente sensações e intuições — que fazem parte integrante da sessão.</p>
+        <p class="flow-title">Trabalho com a mesa</p>
+        <p class="flow-text">Durante a sessão tenho frequentemente sensações e intuições — que fazem parte integrante do processo.</p>
       </div>
     </div>
     <div class="flow-step">
       <div class="flow-num">4</div>
       <div class="flow-content">
-        <p class="flow-title">Áudio no final</p>
-        <p class="flow-text">Envio sempre um áudio com o que observei durante a sessão — o que senti, o que trabalhámos, o que ficou em movimento.</p>
+        <p class="flow-title">Áudio no final (sessões offline)</p>
+        <p class="flow-text">Nas sessões realizadas à distância em modo offline, envio um áudio com o que observei — o que senti, o que trabalhámos, o que ficou em movimento.</p>
       </div>
     </div>
   </div>
